@@ -1,18 +1,23 @@
-{% load static %}
+{%load static%}
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Add Author</title>
+    <link rel="stylesheet" href="{%static 'style.css'%}">
 </head>
 <body>
-<form method="POST">
-    {% csrf_token %}
-    <input type="text" name="name" placeholder="Dish Name" required>
-        <input type="number" name="age" placeholder="age" required>
+<div class="box">
+    <h2>Add Author</h2>
+    <form method="POST">
+        {%csrf_token%}
+        <input type="text" name="name" placeholder="Author Name" required>
+        <input type="number" name="age" placeholder="Age" required>
         <button type="submit">+ Add Author</button>
-        <a href=" http://127.0.0.1:8000/"></a>Back
-</form>
+    </form>
+    <a class="back" href="http://127.0.0.1:8000/">Back</a>
+</div>
+
 </body>
 </html>

@@ -1,0 +1,33 @@
+{%load static%}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Update Book</title>
+    <link rel="stylesheet" href="{%static 'style.css'%}">
+</head>
+<body>
+    <div class="book">
+        <div class="head">
+            <h1>Update Book</h1>
+            <form method="POST" enctype="multipart/form-data">
+                {%csrf_token%}
+                <input type="text" name="name" value="{{book.name}}" required>
+                <textarea name="caption" required>{{book.caption}}</textarea>
+                <select name="author" required>
+                    <option value="">Select Author</option>
+                    {%for author in authors%}
+                    <option value="{{author.id}}">{{author.name}}</option>
+                    {%endfor%}
+                </select>
+                <p>Current Picture:</p>
+                <img src="{{book.picture.url}}" width="150">
+                <input type="file" name="picture">
+                <button class="btn" type="submit">Update Book</button>
+            </form>
+            <a class="back" href="http://127.0.0.1:8000/see_books/">Back</a>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,36 @@
+{%load static%}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Update Order</title>
+    <link rel="stylesheet" href="{%static 'style.css'%}">
+</head>
+<body>
+    <div class="uord">
+        <div class="uohd">
+            <h1>Update Order</h1>
+            <form method="POST">
+                {%csrf_token%}
+                <input type="text" name="username" value="{{order.username}}" placeholder="Username" required>
+                <input type="text" name="phone" value="{{order.phone}}" placeholder="Phone Number" required>
+                <label>Select Books:</label>
+             <select name="books" required>
+                {%for book in books%}
+                <option value="{{book.id}}">{{book.name}}</option>
+                {%endfor%}
+            </select>
+            <br>
+            <br>
+            <label>Lend Date:</label>
+            <input type="datetime-local" name="lend_at" value="{{order.lend_at}}" required>
+            <label>Bring Date:</label>
+            <input type="datetime-local" name="bring_at" value="{{order.bring_at}}" required>
+                <button class="ubtn" type="submit">Update Order</button>
+            </form>
+            <a class="ubak"  href="http://127.0.0.1:8000/">Back Home</a>
+        </div>
+    </div>
+</body>
+</html>

@@ -13,19 +13,21 @@ def home_page(request):
 
 
 def create_author(request):
-    author = Author.objects.all()
-    if request.method == 'POST':
+    if request.method == "POST":
         Author.objects.create(
             name=request.POST['name'],
             age=request.POST['age'])
         return redirect('see_author')
-    return render(request, 'create_author.html', {'author': author})
+    return render(request, 'create_author.html')
 
 
 
 def see_author(request):
-    author = Author.objects.all()
-    return render(request, 'see_author.html', {'author': author})
+    authors= Author.objects.all()
+    return render(request, 'see_author.html', {'authors': authors})
+
+
+
 
 def update_author(request, id):
     author = Author.objects.get(pk=id)
@@ -37,7 +39,7 @@ def update_author(request, id):
     return render(request, 'update_author.html', {'author': author})
 
 def delete_author(request, id):
-    author = Books.objects.get(pk=id)
+    author = Author.objects.get(pk=id)
     author.delete()
     return redirect('see_author')
 
@@ -53,9 +55,10 @@ def create_books(request):
             author_id=request.POST['author'],
             name=request.POST['name'],
             caption=request.POST['caption'],
+            picture=request.FILES['picture']
             )
         return redirect('see_books')
-    return render(request, 'create_books.html', {'author': Author.objects.all(),'books': books})
+    return render(request, 'create_books.html', {'authors': Author.objects.all(),'books': books})
 
 
 
@@ -66,22 +69,21 @@ def see_books(request):
 
 
 
-
 def update_books(request, id):
     books = Books.objects.get(pk=id)
     if request.method == "POST":
-        # books.author_id=request.POST['author'],
-        books.name=request.POST['name'],
-        books.caption=request.POST['caption']
+        books.author_id = request.POST['author']
+        books.name = request.POST['name']
+        books.caption = request.POST['caption']
+        books.picture = request.FILES.get('picture')
         books.save()
-        books.author.set([request.POST['author']])
         return redirect('see_books')
-    return render(request, 'update_books.html', {'books': books,'author': Author.objects.all()})
+    return render(request, 'update_books.html', {'books': books,'authors': Author.objects.all()})
 
 
 def delete_books(request, id):
     book = Books.objects.get(pk=id)
-    book.delete()
+    book.delete()           
     return redirect('see_books')                                                                                                  
 
 
@@ -91,12 +93,12 @@ def create_order(request):
         order = Order.objects.create(
             username=request.POST["username"],
             phone=request.POST["phone"],
-            book_id=request.POST["books"],
             lend_at=request.POST["lend_at"],
             bring_at=request.POST["bring_at"]
             )
+        order.books.add(request.POST['books'])
         return redirect('see_order')
-    return render(request, 'create_order.html', {'books': Books.objects.all(),'order':order})
+    return render(request, 'create_order.html', {'books': Books.objects.all()})
 
 
 
@@ -114,9 +116,9 @@ def update_order(request, id):
         order.lend_at = request.POST['lend_at']
         order.bring_at = request.POST['bring_at']
         order.save()
-        order.books.set([request.POST['books']])
+        order.books.set(request.POST.getlist('books'))
         return redirect('see_order')
-    return render(request, 'update_order.html', {'order': order,'books': Books.objects.all()})
+    return render(request, 'update_order.html', {'order': order, 'books': Books.objects.all()})
 
 
 

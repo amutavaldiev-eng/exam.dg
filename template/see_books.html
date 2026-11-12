@@ -1,0 +1,32 @@
+{%load static%}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>See Books</title>
+    <link rel="stylesheet" href="{%static 'style.css'%}">
+</head>
+<body>
+    <div class="book">
+        <div class="head">
+            <h1>All Books</h1>
+            <a class="btn" href="http://127.0.0.1:8000/create_books/">+ Add Book</a>
+        </div>
+        {%for book in books%}
+        <div class="bcard">
+            <img src="{{book.picture.url}}" alt="Book Image">
+            <h2>{{book.name}}</h2>
+            <p><b>Caption:</b> {{book.caption}}</p>
+            <p><b>Author:</b> {{book.author.name}}</p>
+            <p><b>Created:</b> {{book.created_at}}</p>
+            <div class="bbtn">
+                <a class="updt" href="http://127.0.0.1:8000/update_books/{{book.id}}/">Update</a>
+                <a class="delt" href="http://127.0.0.1:8000/delete_books/{{book.id}}/">Delete</a>
+            </div>
+        </div>
+        {%endfor%}
+        <a class="back" href="http://127.0.0.1:8000/">Back Home</a>
+    </div>
+</body>
+</html>

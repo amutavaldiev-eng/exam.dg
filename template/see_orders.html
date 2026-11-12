@@ -1,0 +1,30 @@
+{%load static%}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>See Orders</title>
+    <link rel="stylesheet" href="{%static 'style.css'%}">
+</head>
+<body><div class="olst">
+    {%for order in orders%}
+    <div class="ocard2">
+        <h2>{{order.username}}</h2>
+        <p><b>Phone:</b> {{order.phone}}</p>
+        <h3>Books:</h3>
+        {%for book in order.books.all%}
+            <p>{{book.name}}</p>
+        {%endfor%}
+        <p><b>Lend:</b>{{order.lend_at}}</p>
+        <p><b>Bring:</b>{{order.bring_at}}</p>
+        <div class="oact">
+            <a class="oupd" href="http://127.0.0.1:8000/update_order/{{order.id}}/">Update</a>
+            <a class="odel" href="http://127.0.0.1:8000/delete_order/{{order.id}}/">Delete</a>
+        </div>
+    </div>
+
+    {%endfor%}
+</div>
+</body>
+</html>

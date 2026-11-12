@@ -1,0 +1,29 @@
+{%load static%}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>See Authors</title>
+    <link rel="stylesheet" href="{%static 'style.css'%}">
+</head>
+<body><div class="auth">
+    <div class="head">
+        <h1>All Authors</h1>
+        <a class="btn" href="http://127.0.0.1:8000/create_author/">+ Add Author</a>
+    </div>
+
+    {%for author in authors%}
+    <div class="card">
+        <h2>{{author.name}}</h2>
+        <p><b>Age:</b> {{author.age}}</p>
+        <p><b>Created:</b> {{author.created_at}}</p>
+        <a class="updt" href="http://127.0.0.1:8000/update_author/{{author.id}}/">Update</a>
+        <a class="delt" href="http://127.0.0.1:8000/delete_author/{{author.id}}/">Delete</a>
+    </div>
+    {%endfor%}
+    <a class="back" href="http://127.0.0.1:8000/">Back Home</a>
+</div>
+</body>
+</html>
+

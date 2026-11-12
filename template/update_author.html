@@ -1,0 +1,24 @@
+{%load static%}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Update Author</title>
+    <link rel="stylesheet" href="{%static 'style.css'%}">
+</head>
+<body>
+    <div class="auth">
+        <div class="head">
+            <h1>Update Author</h1>
+            <form method="POST">
+                {%csrf_token%}
+                <input type="text" name="name" value="{{author.name}}" placeholder="Author Name" required>
+                <input type="number" name="age" value="{{author.age}}" placeholder="Age" required>
+                <button class="updt" type="submit">Update Author</button>
+            </form>
+            <a class="back" href="http://127.0.0.1:8000/see_author/">Back</a>
+        </div>
+    </div>
+</body>
+</html>
